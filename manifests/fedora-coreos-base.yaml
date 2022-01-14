@@ -9,6 +9,7 @@ include:
   - system-configuration.yaml
   - user-experience.yaml
   - shared-workarounds.yaml
+  - constellation.yaml
 
 ostree-layers:
   - overlay/05core
