@@ -1,0 +1,31 @@
+# extra configuration used by constellation
+
+repos:
+  - fedora
+  - fedora-modular
+  - fedora-updates-modular
+
+repo-packages:
+  - repo: fedora
+    packages:
+      - "conntrack-tools"
+      - "dhcp-client"
+  - repo: fedora-coreos-pool
+    packages:
+      - veritysetup
+
+packages:
+  - tpm2-tools
+  - vim-common # provides xxd (needed for GCP nvme disk naming)
+
+postprocess:
+  # empty /etc/cni/net.d as crio rpm has bad default config there
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    rm -rf /etc/cni/net.d/*
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    rm -f /usr/lib/systemd/system/ostree-remount.service
+    ln -s /dev/null /usr/lib/systemd/system/ostree-remount.service

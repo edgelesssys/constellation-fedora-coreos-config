@@ -1170,6 +1170,15 @@
     "vim-minimal": {
       "evra": "2:8.2.3512-1.fc35.x86_64"
     },
+    "vim-data": {
+      "evra": "2:9.0.189-1.fc36.noarch"
+    },
+    "vim-common": {
+      "evra": "2:9.0.189-1.fc36.x86_64"
+    },
+    "vim-enhanced": {
+      "evra": "2:9.0.189-1.fc36.x86_64"
+    },
     "which": {
       "evra": "2.21-27.fc35.x86_64"
     },
@@ -1199,6 +1208,12 @@
     },
     "zram-generator": {
       "evra": "0.3.2-5.fc35.x86_64"
+    },
+    "zstd": {
+      "evra": "1.5.2-2.fc36.x86_64"
+    },
+    "veritysetup": {
+      "evra": "2.4.3-2.fc36.x86_64"
     }
   },
   "metadata": {

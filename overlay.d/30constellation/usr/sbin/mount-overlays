@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# mounts "/etc" as overlay mount before it is bindmounted writable by ostree
+
+root_mountpoint="/sysroot"
+root_mountpoint=$(realpath $root_mountpoint)
+if mountpoint -q "$root_mountpoint"
+then
+   echo "$root_mountpoint is mounted"
+else
+   echo "$root_mountpoint mountpoint not available"
+   exit 1
+fi
+tmpfs_dir="/dev/shm"
+ostree_target=$(cat /proc/cmdline)
+ostree_target="${ostree_target##*ostree=}"
+ostree_target="${ostree_target%% *}"
+deploy_path="${root_mountpoint}/${ostree_target}"
+deploy_path=$(realpath $deploy_path)
+etc_lowerdir=$(realpath $deploy_path/etc)
+etc_upperdir="${tmpfs_dir}/etc_overlay/etc"
+etc_workdir="${tmpfs_dir}/etc_overlay/.work"
+etc_mountpoint=/etc
+
+mountpoint -q "$tmpfs_dir" || mount -t tmpfs tmpfs -o rw,nosuid,nodev,noexec "$tmpfs_dir"
+/bin/mkdir -p "$etc_workdir"
+/bin/mkdir -p "$etc_upperdir"
+echo "Mounting $etc_mountpoint overlay at lowerdir=${etc_lowerdir},upperdir=${etc_upperdir},workdir=${etc_workdir}" > /dev/kmsg
+/bin/mount -t overlay overlay -o rw,relatime,lowerdir=${etc_lowerdir},upperdir=${etc_upperdir},workdir=${etc_workdir} "$etc_mountpoint"
+mountpoint "$etc_mountpoint"

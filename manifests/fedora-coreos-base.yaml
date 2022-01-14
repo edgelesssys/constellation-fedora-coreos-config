@@ -9,6 +9,7 @@ include:
   - system-configuration.yaml
   - user-experience.yaml
   - shared-workarounds.yaml
+  - constellation.yaml
 
 initramfs-args:
   - --no-hostonly
@@ -21,6 +22,9 @@ initramfs-args:
   # Omit these since we don't use them
   - --omit=lvm
   - --omit=iscsi
+
+ostree-override-layers:
+  - overlay/30constellation
 
 # Be minimal
 recommends: false

@@ -1,0 +1,10 @@
+[Unit]
+Description=Prepare dm-verity mapper device
+Before=ostree-prepare-root.service
+FailureAction=reboot-immediate
+After=dev-disk-by\x2dpartlabel-root_raw.device dev-disk-by\x2dpartlabel-root_verity.device
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /usr/sbin/verity-setup
+RemainAfterExit=yes
