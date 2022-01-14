@@ -1,0 +1,7 @@
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=0
+gpgkey=file:///usr/share/distribution-gpg-keys/kubernetes/yum-key.gpg file:///usr/share/distribution-gpg-keys/kubernetes/rpm-package-key.gpg

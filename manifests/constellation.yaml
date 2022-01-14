@@ -1,0 +1,24 @@
+# extra configuration used by constellation
+
+modules:
+  enable:
+    - cri-o:1.20
+
+repos:
+  - kubernetes
+  - fedora
+  - fedora-modular
+  - fedora-updates-modular
+
+repo-packages:
+  - repo: kubernetes
+    packages:
+      - kubelet
+      - kubeadm
+      - kubectl
+  - repo: fedora
+    packages:
+      - conntrack-tools
+
+packages:
+  - cri-o
