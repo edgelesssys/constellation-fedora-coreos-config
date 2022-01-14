@@ -1,0 +1,3 @@
+# Config file for overriding permission bits on overlay files/dirs
+# Format: =<file mode in decimal> <absolute path to a file or directory>
+=555 /usr/lib/udev/google_nvme_id

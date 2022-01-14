@@ -19,7 +19,9 @@ packages:
   - jq
   - less
   - sudo
-  - vim-minimal
+  # full vim required for xxd (required for GCP nvme disk naming)
+  - vim-enhanced
+  # - vim-minimal
   # File compression/decompression
   ## bsdtar - dependency of 35coreos-live dracut module
   - bsdtar
