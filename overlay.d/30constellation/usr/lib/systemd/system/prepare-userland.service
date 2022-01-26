@@ -1,0 +1,17 @@
+[Unit]
+Description=Prepare userland for stateless /etc
+DefaultDependencies=no
+Conflicts=shutdown.target
+After=systemd-remount-fs.service mount-overlays.service
+Before=systemd-firstboot.service systemd-sysusers.service sysinit.target shutdown.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/bash /usr/sbin/prepare-userland
+StandardOutput=tty
+StandardInput=tty
+StandardError=tty
+
+[Install]
+WantedBy=sysinit.target
