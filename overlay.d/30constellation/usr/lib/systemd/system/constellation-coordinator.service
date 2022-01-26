@@ -5,7 +5,7 @@ After=network-online.target
 [Service]
 Type=simple
 EnvironmentFile=/etc/constellation.env
-ExecStartPre=setenforce Permissive
+ExecStartPre=-setenforce Permissive
 ExecStart=/usr/bin/coordinator
 [Install]
 WantedBy=multi-user.target
