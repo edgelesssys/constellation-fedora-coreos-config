@@ -39,12 +39,3 @@ postprocess:
     #!/usr/bin/env bash
     set -xeuo pipefail
     rm -rf /etc/cni/net.d/*
-  # preconfigure passwd and group
-  - |
-    #!/usr/bin/env bash
-    set -xeuo pipefail
-    mv /etc/passwd_hardcoded /etc/passwd
-    mv /etc/group_hardcoded /etc/group
-    sed -i '/^kvm/d' /etc/gshadow
-    sed -i '/^render/d' /etc/gshadow
-    sed -i '/^sgx/d' /etc/gshadow
