@@ -19,6 +19,32 @@ repo-packages:
   - repo: fedora
     packages:
       - conntrack-tools
+  - repo: fedora-coreos-pool
+    packages:
+      - veritysetup
 
 packages:
   - cri-o
+
+postprocess:
+  # Hack for container storage: because /var and /etc
+  # are overlayfs we cannot use overlay driver on top of overlay mountpoint
+  # so using vfs as container storage driver instead
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    sed -i 's/driver = "overlay"/driver = "vfs"/g' /etc/containers/storage.conf
+  # empty /etc/cni/net.d as crio rpm has bad default config there
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    rm -rf /etc/cni/net.d/*
+  # preconfigure passwd and group
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    mv /etc/passwd_hardcoded /etc/passwd
+    mv /etc/group_hardcoded /etc/group
+    sed -i '/^kvm/d' /etc/gshadow
+    sed -i '/^render/d' /etc/gshadow
+    sed -i '/^sgx/d' /etc/gshadow
