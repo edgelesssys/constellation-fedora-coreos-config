@@ -27,13 +27,6 @@ packages:
   - cri-o
 
 postprocess:
-  # Hack for container storage: because /var and /etc
-  # are overlayfs we cannot use overlay driver on top of overlay mountpoint
-  # so using vfs as container storage driver instead
-  - |
-    #!/usr/bin/env bash
-    set -xeuo pipefail
-    sed -i 's/driver = "overlay"/driver = "vfs"/g' /etc/containers/storage.conf
   # empty /etc/cni/net.d as crio rpm has bad default config there
   - |
     #!/usr/bin/env bash
