@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+STATEFUL_PART_UUID=57A7EF-57A7-57A7-57A7-57A7EF01
+STATEFUL_PART_LABEL=stateful
+STATEFUL_PART_NUMBER=6
+STATEFUL_DISK_BY_PARTLABEL="/dev/disk/by-partlabel/${STATEFUL_PART_LABEL}"
+ROOT_DISK="/dev/$(lsblk -ndo pkname "${STATEFUL_DISK_BY_PARTLABEL}")"
+STATEFUL_DISK="/dev/$(lsblk -dno NAME "${STATEFUL_DISK_BY_PARTLABEL}")"
+MOUNTPOINT=/var/lib/containers
+
+# Recreate stateful partition with all available diskspace
+sgdisk -d "${STATEFUL_PART_NUMBER}" -e -n "${STATEFUL_PART_NUMBER}:0:0" -c "${STATEFUL_PART_NUMBER}:stateful" -u "${STATEFUL_PART_NUMBER}:${STATEFUL_PART_UUID}" -t 1:0700 "${ROOT_DISK}"
+partx -u "${ROOT_DISK}"
+partx -u "${STATEFUL_DISK}"
+mkfs.ext4 -L "${STATEFUL_PART_LABEL}" -F "${STATEFUL_DISK}"
+mkdir -p "${MOUNTPOINT}"
+mount "${STATEFUL_DISK}" "${MOUNTPOINT}"
