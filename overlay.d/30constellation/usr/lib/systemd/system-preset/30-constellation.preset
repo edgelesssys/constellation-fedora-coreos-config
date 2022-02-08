@@ -5,3 +5,4 @@ enable kubelet.service
 enable crio.service
 enable mount-overlays.service
 enable prepare-userland.service
+enable stateful-partition.service
