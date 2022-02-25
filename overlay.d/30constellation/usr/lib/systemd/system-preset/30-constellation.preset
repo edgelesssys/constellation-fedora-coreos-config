@@ -6,3 +6,4 @@ enable crio.service
 enable mount-overlays.service
 enable prepare-userland.service
 enable stateful-partition.service
+enable loadbalancer.service
