@@ -1,0 +1,17 @@
+[Unit]
+Description=Print PCR state on startup
+DefaultDependencies=no
+Conflicts=shutdown.target
+After=systemd-remount-fs.service mount-overlays.service prepare-userland.service stateful-partition.service
+Before=systemd-firstboot.service systemd-sysusers.service sysinit.target shutdown.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/tpm2_pcrread sha256
+StandardOutput=tty
+StandardInput=tty
+StandardError=tty
+
+[Install]
+WantedBy=sysinit.target
