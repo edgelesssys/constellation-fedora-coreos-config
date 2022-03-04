@@ -25,6 +25,7 @@ repo-packages:
 
 packages:
   - cri-o
+  - tpm2-tools
 
 postprocess:
   # empty /etc/cni/net.d as crio rpm has bad default config there
