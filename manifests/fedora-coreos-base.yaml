@@ -17,6 +17,7 @@ ostree-layers:
   - overlay/09misc
   - overlay/14NetworkManager-plugins
   - overlay/20platform-chrony
+  - overlay/30constellation
 
 conditional-include:
   # https://github.com/coreos/fedora-coreos-tracker/issues/676
