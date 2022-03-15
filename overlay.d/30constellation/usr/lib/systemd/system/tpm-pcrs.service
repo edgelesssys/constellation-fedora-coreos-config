@@ -1,5 +1,6 @@
 [Unit]
 Description=Print PCR state on startup
+Before=constellation-coordinator.service
 
 [Service]
 Type=oneshot
