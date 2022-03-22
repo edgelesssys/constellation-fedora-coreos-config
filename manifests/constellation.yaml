@@ -1,16 +1,16 @@
 # extra configuration used by constellation
 
-modules:
-  enable:
-    - cri-o:1.20
-
 repos:
+  - crio
   - kubernetes
   - fedora
   - fedora-modular
   - fedora-updates-modular
 
 repo-packages:
+  - repo: crio
+    packages:
+      - crio
   - repo: kubernetes
     packages:
       - kubelet
@@ -24,7 +24,6 @@ repo-packages:
       - veritysetup
 
 packages:
-  - cri-o
   - tpm2-tools
 
 postprocess:
