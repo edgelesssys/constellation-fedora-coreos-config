@@ -1,7 +1,7 @@
 [Unit]
 Description=Loadbalancer Container
-After=cri-o.service
-Requires=cri-o.service
+After=containerd.service
+Requires=containerd.service
 
 [Service]
 TimeoutStartSec=0

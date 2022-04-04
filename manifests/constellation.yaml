@@ -1,16 +1,12 @@
 # extra configuration used by constellation
 
 repos:
-  - crio
   - kubernetes
   - fedora
   - fedora-modular
   - fedora-updates-modular
 
 repo-packages:
-  - repo: crio
-    packages:
-      - crio
   - repo: kubernetes
     packages:
       - kubelet
