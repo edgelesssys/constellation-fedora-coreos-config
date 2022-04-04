@@ -17,6 +17,8 @@ ostree-layers:
   - overlay/09misc
   - overlay/14NetworkManager-plugins
   - overlay/20platform-chrony
+
+ostree-override-layers:
   - overlay/30constellation
 
 conditional-include:
