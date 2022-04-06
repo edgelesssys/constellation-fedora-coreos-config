@@ -1,3 +1,4 @@
+# UPSTREAM SOURCE: https://github.com/GoogleCloudPlatform/guest-configs/blob/97941c2f354d1ce920467805d01bea5e37cd45ec/src/lib/udev/rules.d/65-gce-disk-naming.rules
 # Copyright 2016 Google Inc. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");

@@ -1,4 +1,5 @@
 #!/bin/bash
+# UPSTREAM SOURCE: https://github.com/GoogleCloudPlatform/guest-configs/blob/97941c2f354d1ce920467805d01bea5e37cd45ec/src/lib/udev/google_nvme_id
 # Copyright 2020 Google Inc. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
