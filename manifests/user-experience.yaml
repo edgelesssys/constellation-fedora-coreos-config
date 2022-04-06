@@ -1,4 +1,4 @@
-# These packages are either widely used utilities/services or 
+# These packages are either widely used utilities/services or
 # are targeted for improving the general CoreOS user experience.
 # It is intended to be kept generic so that it may be shared downstream with
 # RHCOS.
@@ -11,7 +11,9 @@ packages:
   - jq
   - less
   - sudo
-  - vim-minimal
+  # full vim required for xxd (required for GCP nvme disk naming)
+  - vim-enhanced
+  # - vim-minimal
   # File compression/decompression
   ## bsdtar - dependency of 35coreos-live dracut module
   - bsdtar
