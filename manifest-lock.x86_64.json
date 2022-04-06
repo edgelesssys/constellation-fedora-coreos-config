@@ -1195,10 +1195,16 @@
       "evra": "2.38-1.fc36.x86_64"
     },
     "vim-data": {
-      "evra": "2:9.0.049-1.fc36.noarch"
+      "evra": "2:9.0.189-1.fc36.noarch"
     },
     "vim-minimal": {
-      "evra": "2:9.0.049-1.fc36.x86_64"
+      "evra": "2:9.0.189-1.fc36.x86_64"
+    },
+    "vim-common": {
+      "evra": "2:9.0.189-1.fc36.x86_64"
+    },
+    "vim-enhanced": {
+      "evra": "2:9.0.189-1.fc36.x86_64"
     },
     "which": {
       "evra": "2.21-32.fc36.x86_64"
