@@ -1,0 +1,2 @@
+/dev/mapper/state    /run/state    ext4    defaults,x-systemd.makefs,x-mount.mkdir    0    1
+/run/state/var /var    none     defaults,bind,x-mount.mkdir    0      0
