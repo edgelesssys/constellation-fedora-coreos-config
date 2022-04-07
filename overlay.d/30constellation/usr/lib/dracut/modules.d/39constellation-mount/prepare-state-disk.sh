@@ -15,17 +15,15 @@ STATEFUL_DISK_BY_PARTLABEL="/dev/disk/by-partlabel/${STATEFUL_PART_LABEL}"
 ROOT_DISK="/dev/$(lsblk -ndo pkname "${STATEFUL_DISK_BY_PARTLABEL}")"
 STATEFUL_DISK="/dev/$(lsblk -dno NAME "${STATEFUL_DISK_BY_PARTLABEL}")"
 
+end_position=$(sgdisk -E "${ROOT_DISK}")
+sgdisk -d "${STATEFUL_PART_NUMBER}" -e -n "${STATEFUL_PART_NUMBER}:0:$(( $end_position - ($end_position + 1) % 8 ))" -c "${STATEFUL_PART_NUMBER}:stateful" -u "${STATEFUL_PART_NUMBER}:${STATEFUL_PART_UUID}" -t 1:0700 "${ROOT_DISK}"
+partx -u "${ROOT_DISK}"
+partx -u "${STATEFUL_DISK}"
 # Prepare the encrypted volume by either initializing it with a random key or by aquiring the key from another coordinator.
 # Create symlink to encrypted state disk at /dev/disk/by-id/state-disk (for example: /dev/disk/by-id/state-disk -> /dev/nvme0n2).
 # Store encryption key (random or recovered key) in /run/cryptsetup-keys.d/state.key
 # Store information about the type of boot (first boot / subsequent boot) in /run/constellation-boot
 mkdir -p /dev/disk/by-id/
 ln -s "${STATEFUL_DISK}" /dev/disk/by-id/state-disk
-mkdir -p /run/cryptsetup-keys.d
-echo "testestetsetestsetsetets" > /run/cryptsetup-keys.d/state.key
-chmod 0400 /run/cryptsetup-keys.d/state.key
 echo "first-boot" > /run/constellation-boot
-cryptsetup --cipher aes-xts-plain --key-size 512 --hash sha512 luksFormat --batch-mode --key-file /run/cryptsetup-keys.d/state.key "${STATEFUL_DISK}"
-cryptsetup luksDump "${STATEFUL_DISK}"
-cryptsetup open --type luks --key-file /run/cryptsetup-keys.d/state.key "${STATEFUL_DISK}" state
-cryptsetup status state
+disk-mapper -csp "$(< /proc/cmdline tr  ' ' '\n' | grep ignition.platform.id | sed 's/ignition.platform.id=//')"
