@@ -19,11 +19,12 @@ install() {
         mount \
         mountpoint \
         mkdir \
-        head \
-        base64 \
         veritysetup \
         cryptsetup \
-        dmsetup
+        dmsetup \
+        sgdisk \
+        partx \
+        disk-mapper
     inst_script "$moddir/verity-setup.sh" \
         "/usr/sbin/verity-setup"
     install_and_enable_unit "verity-setup.service" \
