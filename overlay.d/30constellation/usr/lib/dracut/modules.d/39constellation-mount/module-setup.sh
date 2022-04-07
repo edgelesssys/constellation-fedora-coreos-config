@@ -19,9 +19,17 @@ install() {
         mount \
         mountpoint \
         mkdir \
-        veritysetup
+        head \
+        base64 \
+        veritysetup \
+        cryptsetup \
+        dmsetup
     inst_script "$moddir/verity-setup.sh" \
         "/usr/sbin/verity-setup"
     install_and_enable_unit "verity-setup.service" \
+        "basic.target"
+    inst_script "$moddir/prepare-state-disk.sh" \
+        "/usr/sbin/prepare-state-disk"
+    install_and_enable_unit "prepare-state-disk.service" \
         "basic.target"
 }
