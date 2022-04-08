@@ -19,6 +19,10 @@ install() {
         mount \
         mountpoint \
         mkdir \
+        xxd \
+        grep \
+        sed \
+        nvme \
         veritysetup \
         cryptsetup \
         dmsetup \
@@ -33,4 +37,10 @@ install() {
         "/usr/sbin/prepare-state-disk"
     install_and_enable_unit "prepare-state-disk.service" \
         "basic.target"
+    inst_simple "/usr/lib/udev/rules.d/64-gce-disk-removal.rules" \
+        "/usr/lib/udev/rules.d/64-gce-disk-removal.rules"
+    inst_simple "/usr/lib/udev/rules.d/65-gce-disk-removal-persistent.rules" \
+        "/usr/lib/udev/rules.d/65-gce-disk-removal-persistent.rules"
+    inst_script "/usr/lib/udev/google_nvme_id" \
+        "/usr/lib/udev/google_nvme_id"
 }
