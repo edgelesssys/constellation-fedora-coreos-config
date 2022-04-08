@@ -15,8 +15,14 @@ STATEFUL_DISK_BY_PARTLABEL="/dev/disk/by-partlabel/${STATEFUL_PART_LABEL}"
 ROOT_DISK="/dev/$(lsblk -ndo pkname "${STATEFUL_DISK_BY_PARTLABEL}")"
 STATEFUL_DISK="/dev/$(lsblk -dno NAME "${STATEFUL_DISK_BY_PARTLABEL}")"
 
+# hack: google nvme udev rules are never executed. Create symlinks for the nvme devices manually.
+for nvmedisk in /dev/nvme0n?
+do
+  /usr/lib/udev/google_nvme_id -s -d $nvmedisk || true
+done
+
 end_position=$(sgdisk -E "${ROOT_DISK}")
-sgdisk -d "${STATEFUL_PART_NUMBER}" -e -n "${STATEFUL_PART_NUMBER}:0:$(( $end_position - ($end_position + 1) % 8 ))" -c "${STATEFUL_PART_NUMBER}:stateful" -u "${STATEFUL_PART_NUMBER}:${STATEFUL_PART_UUID}" -t 1:0700 "${ROOT_DISK}"
+sgdisk -d "${STATEFUL_PART_NUMBER}" -e -n "${STATEFUL_PART_NUMBER}:0:$(( $end_position - ($end_position + 1) % 8 ))" -c "${STATEFUL_PART_NUMBER}:stateful" -u "${STATEFUL_PART_NUMBER}:${STATEFUL_PART_UUID}" -t 1:0700 "${ROOT_DISK}" || panic
 partx -u "${ROOT_DISK}"
 partx -u "${STATEFUL_DISK}"
 # Prepare the encrypted volume by either initializing it with a random key or by aquiring the key from another coordinator.
