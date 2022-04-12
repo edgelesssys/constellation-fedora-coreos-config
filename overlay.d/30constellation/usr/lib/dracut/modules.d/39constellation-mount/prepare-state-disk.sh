@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euo pipefail
+shopt -s extglob nullglob
 
 panic () {
   echo 1 > /proc/sys/kernel/sysrq || true
@@ -16,7 +17,7 @@ ROOT_DISK="/dev/$(lsblk -ndo pkname "${STATEFUL_DISK_BY_PARTLABEL}")"
 STATEFUL_DISK="/dev/$(lsblk -dno NAME "${STATEFUL_DISK_BY_PARTLABEL}")"
 
 # hack: google nvme udev rules are never executed. Create symlinks for the nvme devices manually.
-for nvmedisk in /dev/nvme0n?
+for nvmedisk in /dev/nvme0n+([0-9])
 do
   /usr/lib/udev/google_nvme_id -s -d $nvmedisk || true
 done
