@@ -25,7 +25,7 @@ done
 
 # only resize the disk if it is not already initialized
 # we change the UUID of the partition to mark it as initialized
-IFS=" " read -r -a guid <<< "$(sgdisk -i ${STATEFUL_PART_NUMBER} /dev/loop66 | grep "Partition unique GUID")"
+IFS=" " read -r -a guid <<< "$(sgdisk -i ${STATEFUL_PART_NUMBER} "${ROOT_DISK}" | grep "Partition unique GUID")"
 if [[ "${guid[3]}" == "$STATEFUL_PART_UUID_UNITIALIZED" ]]
 then
   end_position=$(sgdisk -E "${ROOT_DISK}")
