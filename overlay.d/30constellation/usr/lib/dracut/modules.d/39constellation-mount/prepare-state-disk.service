@@ -1,6 +1,7 @@
 [Unit]
 Description=Prepare encrypted state disk
 Before=ostree-prepare-root.service
+After=nm-initrd.service
 
 [Service]
 Type=oneshot
