@@ -23,15 +23,21 @@ do
   /usr/lib/udev/google_nvme_id -s -d "${nvmedisk}" || true
 done
 
-# only resize the disk if it is not already initialized
-# we change the UUID of the partition to mark it as initialized
-IFS=" " read -r -a guid <<< "$(sgdisk -i ${STATEFUL_PART_NUMBER} "${ROOT_DISK}" | grep "Partition unique GUID")"
-if [[ "${guid[3]}" == "$STATEFUL_PART_UUID_UNITIALIZED" ]]
+# changing the GPT/parition table of the boot disk causes PCR[5] to be different on reboot
+# this means the node will not be able to automatically request its encryption key, and manual recovery is required
+# to avoid this we only resize the fallback partition if absolutely necessary, i.e. if no external disk exists
+if [ ! -L "/dev/disk/by-id/google-state-disk" ] && [ ! -L "/dev/disk/azure/scsi1/lun0" ]
 then
-  end_position=$(sgdisk -E "${ROOT_DISK}")
-  sgdisk -d "${STATEFUL_PART_NUMBER}" -e -n "${STATEFUL_PART_NUMBER}:0:$(( $end_position - ($end_position + 1) % 8 ))" -c "${STATEFUL_PART_NUMBER}:stateful" -u "${STATEFUL_PART_NUMBER}:${STATEFUL_PART_UUID_INITIALIZED}" -t 1:0700 "${ROOT_DISK}" || panic
-  partx -u "${ROOT_DISK}"
-  partx -u "${STATEFUL_DISK}"
+  # only  resize the disk if it is not already initialized
+  # we change the UUID of the partition to mark it as initialized
+  IFS=" " read -r -a guid <<< "$(sgdisk -i ${STATEFUL_PART_NUMBER} "${ROOT_DISK}" | grep "Partition unique GUID")"
+  if [[ "${guid[3]}" == "$STATEFUL_PART_UUID_UNITIALIZED" ]]
+  then
+    end_position=$(sgdisk -E "${ROOT_DISK}")
+    sgdisk -d "${STATEFUL_PART_NUMBER}" -e -n "${STATEFUL_PART_NUMBER}:0:$(( $end_position - ($end_position + 1) % 8 ))" -c "${STATEFUL_PART_NUMBER}:stateful" -u "${STATEFUL_PART_NUMBER}:${STATEFUL_PART_UUID_INITIALIZED}" -t 1:0700 "${ROOT_DISK}" || panic
+    partx -u "${ROOT_DISK}"
+    partx -u "${STATEFUL_DISK}"
+  fi
 fi
 
 # Prepare the encrypted volume by either initializing it with a random key or by aquiring the key from another coordinator.
