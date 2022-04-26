@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euo pipefail
+shopt -s extglob nullglob
 
 # hack: google nvme udev rules are never executed. Create symlinks for the nvme devices manually.
 for nvmedisk in /dev/nvme0n+([0-9])
