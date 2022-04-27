@@ -1,6 +1,7 @@
 [Unit]
 Description=Prepare dm-verity mapper device
 Before=ostree-prepare-root.service
+FailureAction=reboot-immediate
 
 [Service]
 Type=oneshot
