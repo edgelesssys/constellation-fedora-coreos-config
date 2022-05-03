@@ -1,0 +1,20 @@
+[Unit]
+Description=Google Compute Engine Guest Agent
+After=containerd.service
+Requires=containerd.service
+After=network-online.target syslog.service
+After=network.service networking.service NetworkManager.service systemd-networkd.service
+Wants=network-online.target
+PartOf=network.service networking.service NetworkManager.service systemd-networkd.service
+ConditionKernelCommandLine=ignition.platform.id=gcp
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/podman stop gcp-guest-agent
+ExecStartPre=-/usr/bin/podman rm gcp-guest-agent
+ExecStartPre=/usr/bin/podman pull ghcr.io/edgelesssys/gcp-guest-agent:latest
+ExecStart=/usr/bin/podman run --rm --name gcp-guest-agent --net=host --cap-add=NET_ADMIN -v /etc/ssl:/etc/ssl:ro -v /etc/pki:/etc/pki:ro  -v /bin:/bin:ro -v /usr/bin:/usr/bin:ro -v /usr:/usr:ro -v /lib:/lib:ro -v /lib64:/lib64:ro ghcr.io/edgelesssys/gcp-guest-agent:latest
+
+[Install]
+WantedBy=multi-user.target
