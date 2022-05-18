@@ -3,7 +3,7 @@ Description=Configures constellation cloud service provider environment variable
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash -c "CSP=$(cat /proc/cmdline | tr  ' ' '\n' | grep ignition.platform.id | sed 's/ignition.platform.id=//'); echo CONSTEL_CSP=$CSP > /etc/constellation.env"
+ExecStart=/bin/bash -c "CSP=$(cat /proc/cmdline | tr  ' ' '\n' | grep ignition.platform.id | sed 's/ignition.platform.id=//'); echo CONSTEL_CSP=$CSP >> /etc/constellation.env"
 RemainAfterExit=yes
 
 [Install]
