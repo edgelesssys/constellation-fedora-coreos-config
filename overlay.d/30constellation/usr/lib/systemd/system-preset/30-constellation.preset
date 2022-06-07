@@ -7,4 +7,4 @@ enable mount-overlays.service
 enable prepare-userland.service
 enable loadbalancer.service
 enable tpm-pcrs.service
-gcp-guest-agent.service
+enable gcp-guest-agent.service
