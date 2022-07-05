@@ -9,7 +9,7 @@ do
 done
 
 
-# Prepare the encrypted volume by either initializing it with a random key or by aquiring the key from another coordinator.
+# Prepare the encrypted volume by either initializing it with a random key or by aquiring the key from another bootstrapper.
 # Create symlink to encrypted state disk at /dev/disk/by-id/state-disk (for example: /dev/disk/by-id/state-disk -> /dev/nvme0n2).
 # Store encryption key (random or recovered key) in /run/cryptsetup-keys.d/state.key
 # Store information about the type of boot (first boot / subsequent boot) in /run/constellation-boot
