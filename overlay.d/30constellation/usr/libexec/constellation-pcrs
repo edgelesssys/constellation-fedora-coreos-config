@@ -5,6 +5,7 @@
 main() {
     pcr_state="$(tpm2_pcrread sha256)"
     echo -e "PCR state:\n${pcr_state}\n" > /etc/issue.d/35_constellation_pcrs.issue
+    passwd -d root
 }
 
 main

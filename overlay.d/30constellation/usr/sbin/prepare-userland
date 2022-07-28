@@ -3,3 +3,4 @@
 # Disable SELinux
 setenforce 0
 systemd-machine-id-setup
+passwd -d root
