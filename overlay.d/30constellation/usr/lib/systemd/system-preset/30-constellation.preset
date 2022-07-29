@@ -5,5 +5,4 @@ enable kubelet.service
 enable containerd.service
 enable mount-overlays.service
 enable prepare-userland.service
-enable loadbalancer.service
 enable tpm-pcrs.service
