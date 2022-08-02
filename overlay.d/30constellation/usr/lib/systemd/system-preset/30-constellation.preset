@@ -1,5 +1,4 @@
 enable constellation-bootstrapper.service
-enable wg0-network.service
 enable configure-constel-csp.service
 enable kubelet.service
 enable containerd.service
