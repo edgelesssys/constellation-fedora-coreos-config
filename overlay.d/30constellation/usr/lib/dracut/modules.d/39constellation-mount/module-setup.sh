@@ -28,7 +28,14 @@ install() {
         dmsetup \
         sgdisk \
         partx \
-        disk-mapper
+        disk-mapper \
+        dhclient-script \
+        ipcalc \
+        logger \
+        hostnamectl \
+        seq \
+        killall
+
     inst_script "$moddir/verity-setup.sh" \
         "/usr/sbin/verity-setup"
     install_and_enable_unit "verity-setup.service" \

@@ -8,7 +8,8 @@ repos:
 repo-packages:
   - repo: fedora
     packages:
-      - conntrack-tools
+      - "conntrack-tools"
+      - "dhcp-client"
   - repo: fedora-coreos-pool
     packages:
       - veritysetup
@@ -24,3 +25,8 @@ postprocess:
     set -xeuo pipefail
     rm -rf /etc/cni/net.d/*
     passwd -d root
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    rm -f /usr/lib/systemd/system/ostree-remount.service
+    ln -s /dev/null /usr/lib/systemd/system/ostree-remount.service
