@@ -1,8 +1,6 @@
 [Unit]
 Description=Prepare encrypted state disk
 Before=ostree-prepare-root.service
-Wants=network-online.target
-After=network-online.target
 FailureAction=reboot-immediate
 
 [Service]
