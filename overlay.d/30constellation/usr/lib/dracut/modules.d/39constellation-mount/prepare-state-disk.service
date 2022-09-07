@@ -1,6 +1,7 @@
 [Unit]
 Description=Prepare encrypted state disk
 Before=ostree-prepare-root.service
+After=nm-wait-online-initrd.service verity-setup.service
 FailureAction=reboot-immediate
 
 [Service]
