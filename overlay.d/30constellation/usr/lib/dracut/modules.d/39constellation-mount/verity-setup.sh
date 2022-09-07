@@ -2,6 +2,7 @@
 set -euo pipefail
 
 panic () {
+  sleep 5 # allow error messages to be printed
   echo 1 > /proc/sys/kernel/sysrq || true
   echo c > /proc/sysrq-trigger || true
 }
