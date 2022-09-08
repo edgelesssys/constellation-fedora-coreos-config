@@ -2,7 +2,7 @@
 Description=Prepare dm-verity mapper device
 Before=ostree-prepare-root.service
 FailureAction=reboot-immediate
-After=dev-disk-by\x2dpartlabel-root_raw.device dev-disk-by\x2dpartlabel-root_verity.device
+After=dev-disk-by\x2dpartlabel-root_raw.device dev-disk-by\x2dpartlabel-root_verity.device nm-wait-online-initrd.service
 
 [Service]
 Type=oneshot
