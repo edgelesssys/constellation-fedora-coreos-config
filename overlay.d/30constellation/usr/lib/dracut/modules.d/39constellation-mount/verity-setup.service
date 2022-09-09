@@ -1,10 +1,12 @@
 [Unit]
 Description=Prepare dm-verity mapper device
-Before=ostree-prepare-root.service
 FailureAction=reboot-immediate
-After=dev-disk-by\x2dpartlabel-root_raw.device dev-disk-by\x2dpartlabel-root_verity.device nm-wait-online-initrd.service
+Before=initrd-root-fs.target ostree-prepare-root.service
+After=dev-disk-by\x2dpartlabel-root_raw.device dev-disk-by\x2dpartlabel-root_verity.device nm-wait-online-initrd.service dracut-pre-mount.service
+Requires=dev-disk-by\x2dpartlabel-root_raw.device dev-disk-by\x2dpartlabel-root_verity.device
 
 [Service]
 Type=oneshot
 ExecStart=/bin/bash /usr/sbin/verity-setup
 RemainAfterExit=yes
+TimeoutSec=infinity
