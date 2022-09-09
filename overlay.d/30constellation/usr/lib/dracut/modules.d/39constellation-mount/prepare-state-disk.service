@@ -11,3 +11,4 @@ RemainAfterExit=yes
 StandardOutput=tty
 StandardInput=tty
 StandardError=tty
+TimeoutSec=infinity
