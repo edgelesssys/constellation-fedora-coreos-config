@@ -112,19 +112,19 @@ packages:
       reason: https://github.com/coreos/fedora-coreos-streams/issues/383#issuecomment-946115687
       type: fast-track
   kernel:
-    evr: 5.14.14-300.fc35
+    evr: 5.15.18-200.fc35
     metadata:
       bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-a98532af5e
       reason: https://github.com/coreos/fedora-coreos-config/pull/1305#issuecomment-951242424
       type: fast-track
   kernel-core:
-    evr: 5.14.14-300.fc35
+    evr: 5.15.18-200.fc35
     metadata:
       bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-a98532af5e
       reason: https://github.com/coreos/fedora-coreos-config/pull/1305#issuecomment-951242424
       type: fast-track
   kernel-modules:
-    evr: 5.14.14-300.fc35
+    evr: 5.15.18-200.fc35
     metadata:
       bodhi: https://bodhi.fedoraproject.org/updates/FEDORA-2021-a98532af5e
       reason: https://github.com/coreos/fedora-coreos-config/pull/1305#issuecomment-951242424
